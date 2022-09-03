@@ -13,6 +13,7 @@ public class Camera : MonoBehaviour
     bool look;
     Vector3 startCameraPos;
     public Transform[] closeObj;
+    public Transform closeMove;
     public Button button;
     private void Update()
     {
@@ -33,6 +34,7 @@ public class Camera : MonoBehaviour
         if (first)
         {
             button.interactable = false;
+            closeMove.gameObject.SetActive(false);
             for (int i = 0; i < closeObj.Length; i++)
             {
                 closeObj[i].gameObject.SetActive(false);
@@ -40,13 +42,14 @@ public class Camera : MonoBehaviour
             startCameraPos = cameraa.transform.position - player.transform.position;
             cameraAfterRot = cameraa.transform.rotation.eulerAngles;
             cinemachine.enabled = false;
-            cameraa.transform.DOMove(transform.position, 3f).OnComplete(() => { look = true; button.interactable = true; } );
+            cameraa.transform.DOMove(transform.position, 3f).OnComplete(() => { look = true; button.interactable = true; closeMove.gameObject.SetActive(true); } );
             cameraa.transform.DORotate(new Vector3(90, 0, 0), 3f);
             first = false;
             return;
         }
         else
         {
+            closeMove.gameObject.SetActive(false);
             button.interactable = false;
             look = false;
 
@@ -59,6 +62,7 @@ public class Camera : MonoBehaviour
                     closeObj[i].gameObject.SetActive(true);
                 }
                 button.interactable = true;
+                closeMove.gameObject.SetActive(true);
             });
             cameraa.transform.DORotate(cameraAfterRot, 3f);
             first=true;

@@ -622,6 +622,12 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!224 &72283485 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4700314800559521240, guid: 2f7f3dde7ae722a4aafffe20691ad702,
+    type: 3}
+  m_PrefabInstance: {fileID: 922854180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &96298582 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8160084292953347161, guid: 2f7f3dde7ae722a4aafffe20691ad702,
@@ -7242,6 +7248,11 @@ PrefabInstance:
       propertyPath: cameraa
       value: 
       objectReference: {fileID: 1633857368}
+    - target: {fileID: 5292231386282037200, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: closeMove
+      value: 
+      objectReference: {fileID: 72283485}
     - target: {fileID: 5292231386282037200, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: cinemachine
