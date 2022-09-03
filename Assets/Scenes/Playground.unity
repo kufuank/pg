@@ -7235,6 +7235,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292231386282037200, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
+      propertyPath: ease
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292231386282037200, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: Timer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292231386282037200, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
       propertyPath: button
       value: 
       objectReference: {fileID: 538639695}

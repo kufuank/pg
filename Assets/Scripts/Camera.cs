@@ -15,6 +15,8 @@ public class Camera : MonoBehaviour
     public Transform[] closeObj;
     public Transform closeMove;
     public Button button;
+    public float Timer;
+    public Ease ease;
     private void Update()
     {
         
@@ -42,8 +44,8 @@ public class Camera : MonoBehaviour
             startCameraPos = cameraa.transform.position - player.transform.position;
             cameraAfterRot = cameraa.transform.rotation.eulerAngles;
             cinemachine.enabled = false;
-            cameraa.transform.DOMove(transform.position, 3f).OnComplete(() => { look = true; button.interactable = true; closeMove.gameObject.SetActive(true); } );
-            cameraa.transform.DORotate(new Vector3(90, 0, 0), 3f);
+            cameraa.transform.DOMove(transform.position, Timer).OnComplete(() => { look = true; button.interactable = true; closeMove.gameObject.SetActive(true); } ).SetEase(ease);
+            cameraa.transform.DORotate(new Vector3(90, 0, 0), Timer).SetEase(ease);
             first = false;
             return;
         }
@@ -54,7 +56,7 @@ public class Camera : MonoBehaviour
             look = false;
 
 
-            cameraa.transform.DOMove((player.transform.position + startCameraPos), 3f).OnComplete(() =>
+            cameraa.transform.DOMove((player.transform.position + startCameraPos), Timer).OnComplete(() =>
             {
                 cinemachine.enabled = true;
                 for (int i = 0; i < closeObj.Length; i++)
@@ -63,8 +65,8 @@ public class Camera : MonoBehaviour
                 }
                 button.interactable = true;
                 closeMove.gameObject.SetActive(true);
-            });
-            cameraa.transform.DORotate(cameraAfterRot, 3f);
+            }).SetEase(ease);
+            cameraa.transform.DORotate(cameraAfterRot, Timer).SetEase(ease);
             first=true;
         }
        
