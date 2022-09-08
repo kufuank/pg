@@ -10,6 +10,7 @@ For the time-being; this script will disable a PlayerInput's auto switch control
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+
 #endif
 
 public class MobileDisableAutoSwitchControls : MonoBehaviour
@@ -19,15 +20,22 @@ public class MobileDisableAutoSwitchControls : MonoBehaviour
 
     [Header("Target")]
     public PlayerInput playerInput;
-
+    public ServerManager serverManager;
+   
     void Start()
     {
+        Invoke("Atama", 2f);
         DisableAutoSwitchControls();
     }
 
     void DisableAutoSwitchControls()
     {
         playerInput.neverAutoSwitchControlSchemes = true;
+    }
+    void Atama()
+    {
+        
+        playerInput = serverManager.oyuncular[serverManager.oyuncular.Count-1].transform.GetChild(0).GetComponent<PlayerInput>();
     }
 
 #endif

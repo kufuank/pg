@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -151,14 +152,18 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
-
+        [SerializeField] private PhotonView view;
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
+            if (view.IsMine)
+            {
+                _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
+           
         }
 
         private void LateUpdate()

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using Cinemachine;
 
 public class ServerManager : MonoBehaviourPunCallbacks
 {
+    public List<GameObject> oyuncular = new List<GameObject>();
+    public CinemachineVirtualCamera cinemachineVirtualCamera;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -29,6 +32,10 @@ public class ServerManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Odaya baðlanýldý");
         Debug.Log("Karakter oluþturuluyor...");
-        PhotonNetwork.Instantiate("Oyuncu", new Vector3(-10, 5, -5), Quaternion.identity, 0, null);
+        GameObject obj = PhotonNetwork.Instantiate("Human", new Vector3(-10, 5, -5), Quaternion.identity, 0, null);
+        oyuncular.Add(obj);
+        cinemachineVirtualCamera.Follow = oyuncular[oyuncular.Count - 1].transform.GetChild(0).transform;
+
+
     }
 }
