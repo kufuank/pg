@@ -39,7 +39,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Odaya baðlanýldý");
         Debug.Log("Karakter oluþturuluyor...");
-        GameObject obj = PhotonNetwork.Instantiate("Human", new Vector3(-10, 5, -5), Quaternion.identity, 0, null);
+        GameObject obj = PhotonNetwork.Instantiate("Human", new Vector3(6.4f, 5, -14), Quaternion.identity, 0, null);
         oyuncular.Add(obj);
         Transform player = oyuncular[oyuncular.Count - 1].transform;
         cinemachineVirtualCamera.Follow = player.GetChild(0).transform;
