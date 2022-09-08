@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class Camera : MonoBehaviour
 {
     public CinemachineBrain cinemachine;
-    public Camera cameraa;
-    public GameObject player;
+    public Transform cameraa;
+    public GameObject upPoint;
     bool look;
     Vector3 startCameraPos;
     public Transform[] closeObj;
@@ -22,7 +22,7 @@ public class Camera : MonoBehaviour
         
         if (look)
         {
-            cameraa.transform.position = new Vector3(player.transform.position.x, cameraa.transform.position.y, player.transform.position.z);
+            cameraa.transform.position = new Vector3(upPoint.transform.position.x, cameraa.transform.position.y, upPoint.transform.position.z);
         }
         
         
@@ -41,10 +41,10 @@ public class Camera : MonoBehaviour
             {
                 closeObj[i].gameObject.SetActive(false);
             }
-            startCameraPos = cameraa.transform.position - player.transform.position;
+            startCameraPos = cameraa.transform.position - upPoint.transform.position;
             cameraAfterRot = cameraa.transform.rotation.eulerAngles;
             cinemachine.enabled = false;
-            cameraa.transform.DOMove(transform.position, Timer).OnComplete(() => { look = true; button.interactable = true; closeMove.gameObject.SetActive(true); } ).SetEase(ease);
+            cameraa.transform.DOMove(upPoint.transform.position, Timer).OnComplete(() => { look = true; button.interactable = true; closeMove.gameObject.SetActive(true); } ).SetEase(ease);
             cameraa.transform.DORotate(new Vector3(90, 0, 0), Timer).SetEase(ease);
             first = false;
             return;
@@ -56,7 +56,7 @@ public class Camera : MonoBehaviour
             look = false;
 
 
-            cameraa.transform.DOMove((player.transform.position + startCameraPos), Timer).OnComplete(() =>
+            cameraa.transform.DOMove((upPoint.transform.position + startCameraPos), Timer).OnComplete(() =>
             {
                 cinemachine.enabled = true;
                 for (int i = 0; i < closeObj.Length; i++)

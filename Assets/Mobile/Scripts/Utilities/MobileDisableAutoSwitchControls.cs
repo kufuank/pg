@@ -20,23 +20,15 @@ public class MobileDisableAutoSwitchControls : MonoBehaviour
 
     [Header("Target")]
     public PlayerInput playerInput;
-    public ServerManager serverManager;
+ 
    
-    void Start()
-    {
-        Invoke("Atama", 2f);
-        DisableAutoSwitchControls();
-    }
+   
 
-    void DisableAutoSwitchControls()
+    public void DisableAutoSwitchControls()
     {
         playerInput.neverAutoSwitchControlSchemes = true;
     }
-    void Atama()
-    {
-        
-        playerInput = serverManager.oyuncular[serverManager.oyuncular.Count-1].transform.GetChild(0).GetComponent<PlayerInput>();
-    }
+   
 
 #endif
     
