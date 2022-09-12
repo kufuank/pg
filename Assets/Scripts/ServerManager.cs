@@ -6,7 +6,9 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
-
+using TMPro;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class ServerManager : MonoBehaviourPunCallbacks
 {
@@ -16,9 +18,20 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public UICanvasControllerInput controllerInput;
     public Camera cameraa;
     private Animator anim;
+    public TextMeshProUGUI loadingText;
+    public Slider slider;
+    public Image loadingImage;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        StartCoroutine(Loading());
+    }
+   IEnumerator Loading()
+    {
+        slider.DOValue(100, 3f).OnUpdate(() =>
+         loadingText.text = slider.value.ToString("F0")
+        );
+        yield return new WaitForSeconds(1.5f);
     }
     public override void OnConnectedToMaster()
     {
@@ -40,6 +53,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
         Debug.Log("Odaya baðlanýldý");
         Debug.Log("Karakter oluþturuluyor...");
         GameObject obj = PhotonNetwork.Instantiate("Human", new Vector3(6.4f, 5, -14), Quaternion.identity, 0, null);
+        loadingImage.gameObject.SetActive(false);
         oyuncular.Add(obj);
         Transform player = oyuncular[oyuncular.Count - 1].transform;
         cinemachineVirtualCamera.Follow = player.GetChild(0).transform;
