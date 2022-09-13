@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Runtime.InteropServices;
 
 public class ServerManager : MonoBehaviourPunCallbacks
 {
@@ -21,12 +22,31 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI loadingText;
     public Slider slider;
     public Image loadingImage;
+    public TextMeshProUGUI m_DeviceType;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
         StartCoroutine(Loading());
+        if (isMobile())
+        {
+            m_DeviceType.text = "Handheld";
+        }
+        else
+        {
+            m_DeviceType.text = "Desktop";
+        }
     }
-   IEnumerator Loading()
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+
+    public bool isMobile()
+    {
+#if !UNITY_EDITOR && UNITY_WEBGL
+         return IsMobile();
+#endif
+        return false;
+    }
+    IEnumerator Loading()
     {
         slider.DOValue(100, 3f).OnUpdate(() =>
          loadingText.text = slider.value.ToString("F0")
