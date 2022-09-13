@@ -5,7 +5,7 @@ using Cinemachine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class Camera : MonoBehaviour
+public class CameraUp : MonoBehaviour
 {
     private ServerManager serverManager;
     public CinemachineBrain cinemachine;

@@ -6,7 +6,7 @@ public class PcController : MonoBehaviour
 {
     //public GameObject player;
     public ServerManager serverManager;
-    public Camera cameraa;
+    public CameraUp cameraa;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))

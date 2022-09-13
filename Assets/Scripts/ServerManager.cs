@@ -18,7 +18,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     public MobileDisableAutoSwitchControls switchControls;
     public UICanvasControllerInput controllerInput;
-    public Camera cameraa;
+    public CameraUp cameraa;
     private Animator anim;
     public TextMeshProUGUI loadingText;
     public Slider slider;
