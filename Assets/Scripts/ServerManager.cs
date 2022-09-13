@@ -28,7 +28,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public StarterAssetsInputs starterAssetsInputs;
     public PcController pcController;
     public TextMeshPro playerName;
-    public TMP_InputField ýnputField;
+    public TMP_InputField inputField;
     void Start()
     {
        
@@ -48,7 +48,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     }
     IEnumerator Loading()
     {
-        ýnputField.gameObject.SetActive(false);
+        inputField.gameObject.SetActive(false);
         slider.gameObject.SetActive(true);
         slider.DOValue(100, 3f).OnUpdate(() =>
          loadingText.text = slider.value.ToString("F0")
@@ -58,22 +58,21 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        Debug.Log("Servere baðlanýldý");
-        Debug.Log("Lobiye baðlanýlýyor");
+        Debug.Log("Server ");
+        Debug.Log("Lobi ");
         PhotonNetwork.JoinLobby();
     }
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        Debug.Log("Lobiye baðlanýldý");
-        Debug.Log("Odaya baðlanýlýyor");
+      
         PhotonNetwork.JoinOrCreateRoom("Odaismi", new RoomOptions { MaxPlayers = 20, IsOpen = true, IsVisible = true }, TypedLobby.Default);
     }
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        Debug.Log("Odaya baðlanýldý");
-        Debug.Log("Karakter oluþturuluyor...");
+        Debug.Log("Odaya baðlanildi");
+        
         GameObject obj = PhotonNetwork.Instantiate("Human", new Vector3(6.4f, 5, -14), Quaternion.identity, 0, null);
         loadingImage.gameObject.SetActive(false);
         oyuncular.Add(obj);
@@ -82,8 +81,8 @@ public class ServerManager : MonoBehaviourPunCallbacks
         controllerInput.starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
         starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
         playerName = player.GetChild(4).GetComponent<TextMeshPro>();
-        PhotonNetwork.NickName = ýnputField.text;
-        playerName.text = ýnputField.text;
+        PhotonNetwork.NickName = inputField.text;
+        playerName.text = inputField.text;
         
         DeviceControl();
         //switchControls.playerInput = player.GetComponent<PlayerInput>();
