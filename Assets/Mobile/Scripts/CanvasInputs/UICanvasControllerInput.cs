@@ -11,6 +11,7 @@ namespace StarterAssets
       
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
+            starterAssetsInputs.gameObject.GetComponent<Animator>().SetBool("HandShake", false);
             starterAssetsInputs.MoveInput(virtualMoveDirection);
         }
 

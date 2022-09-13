@@ -2,6 +2,7 @@
      IsMobile: function()
      {
          return Module.SystemInfo.mobile;
+        
      }
  };
  

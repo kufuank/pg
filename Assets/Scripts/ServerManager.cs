@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Runtime.InteropServices;
+using System;
 
 public class ServerManager : MonoBehaviourPunCallbacks
 {
@@ -23,18 +24,17 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public Slider slider;
     public Image loadingImage;
     public TextMeshProUGUI m_DeviceType;
+    public GameObject[] canvasClosed;
+    public StarterAssetsInputs starterAssetsInputs;
+    public PcController pcController;
+    public TextMeshPro playerName;
+    public TMP_InputField ýnputField;
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
-        StartCoroutine(Loading());
-        if (isMobile())
-        {
-            m_DeviceType.text = "Handheld";
-        }
-        else
-        {
-            m_DeviceType.text = "Desktop";
-        }
+       
+       
+      
+       
     }
     [DllImport("__Internal")]
     private static extern bool IsMobile();
@@ -48,6 +48,8 @@ public class ServerManager : MonoBehaviourPunCallbacks
     }
     IEnumerator Loading()
     {
+        ýnputField.gameObject.SetActive(false);
+        slider.gameObject.SetActive(true);
         slider.DOValue(100, 3f).OnUpdate(() =>
          loadingText.text = slider.value.ToString("F0")
         );
@@ -65,7 +67,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
         Debug.Log("Lobiye baðlanýldý");
         Debug.Log("Odaya baðlanýlýyor");
-        PhotonNetwork.JoinOrCreateRoom("Odaismi", new RoomOptions { MaxPlayers = 2, IsOpen = true, IsVisible = true }, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom("Odaismi", new RoomOptions { MaxPlayers = 20, IsOpen = true, IsVisible = true }, TypedLobby.Default);
     }
     public override void OnJoinedRoom()
     {
@@ -78,14 +80,57 @@ public class ServerManager : MonoBehaviourPunCallbacks
         Transform player = oyuncular[oyuncular.Count - 1].transform;
         cinemachineVirtualCamera.Follow = player.GetChild(0).transform;
         controllerInput.starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
+        starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
+        playerName = player.GetChild(4).GetComponent<TextMeshPro>();
+        PhotonNetwork.NickName = ýnputField.text;
+        playerName.text = ýnputField.text;
+        
+        DeviceControl();
         //switchControls.playerInput = player.GetComponent<PlayerInput>();
         //switchControls.DisableAutoSwitchControls();
-        
+        pcController.enabled = true;
+        //pcController.player = player.gameObject;
         cameraa.upPoint = player.GetChild(3).gameObject;
         anim = player.GetComponent<Animator>();
     }
+
+    private void DeviceControl()
+    {
+        //if (isMobile())
+        //{
+        //    for (int i = 0; i < canvasClosed.Length; i++)
+        //    {
+        //        canvasClosed[i].gameObject.SetActive(true);
+        //    }
+        //    starterAssetsInputs.cursorInputForLook = false;
+        //    starterAssetsInputs.cursorLocked = false;
+        //    m_DeviceType.text = "Handheld";
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < canvasClosed.Length; i++)
+        //    {
+        //        canvasClosed[i].gameObject.SetActive(false);
+        //    }
+        //    starterAssetsInputs.cursorInputForLook = true;
+        //    starterAssetsInputs.cursorLocked = true;
+        //    m_DeviceType.text = "Desktop";
+        //}
+    }
+    bool firstDown = true;
     public void HandShake()
     {
-        anim.SetTrigger("HandShake");
+
+        anim.SetBool("HandShake", true);
+     
+
+       
+
+    }
+    public void Onay()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+        StartCoroutine(Loading());
+
     }
 }

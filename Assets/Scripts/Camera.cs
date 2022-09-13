@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Camera : MonoBehaviour
 {
+    private ServerManager serverManager;
     public CinemachineBrain cinemachine;
     public Transform cameraa;
     public GameObject upPoint;
@@ -17,6 +18,10 @@ public class Camera : MonoBehaviour
     public Button button;
     public float Timer;
     public Ease ease;
+    private void Start()
+    {
+        serverManager = GetComponent<ServerManager>();
+    }
     private void Update()
     {
         
@@ -44,7 +49,7 @@ public class Camera : MonoBehaviour
             startCameraPos = cameraa.transform.position - upPoint.transform.position;
             cameraAfterRot = cameraa.transform.rotation.eulerAngles;
             cinemachine.enabled = false;
-            cameraa.transform.DOMove(upPoint.transform.position, Timer).OnComplete(() => { look = true; button.interactable = true; closeMove.gameObject.SetActive(true); } ).SetEase(ease);
+            cameraa.transform.DOMove(upPoint.transform.position, Timer).OnComplete(() => { look = true; button.interactable = true; if(serverManager.isMobile())closeMove.gameObject.SetActive(true); } ).SetEase(ease);
             cameraa.transform.DORotate(new Vector3(90, 0, 0), Timer).SetEase(ease);
             first = false;
             return;
@@ -59,12 +64,17 @@ public class Camera : MonoBehaviour
             cameraa.transform.DOMove((upPoint.transform.position + startCameraPos), Timer).OnComplete(() =>
             {
                 cinemachine.enabled = true;
-                for (int i = 0; i < closeObj.Length; i++)
+                if (serverManager.isMobile())
                 {
-                    closeObj[i].gameObject.SetActive(true);
+                    for (int i = 0; i < closeObj.Length; i++)
+                    {
+                        closeObj[i].gameObject.SetActive(true);
+                    }
+                    button.interactable = true;
+                    closeMove.gameObject.SetActive(true);
                 }
-                button.interactable = true;
-                closeMove.gameObject.SetActive(true);
+               
+               
             }).SetEase(ease);
             cameraa.transform.DORotate(cameraAfterRot, Timer).SetEase(ease);
             first=true;
