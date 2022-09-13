@@ -159,6 +159,7 @@ namespace StarterAssets
                 
                 _hasAnimator = TryGetComponent(out _animator);
                 playerName.text = PhotonNetwork.NickName;
+                playerName.gameObject.SetActive(false);
                 JumpAndGravity();
                 GroundedCheck();
                 Move();
