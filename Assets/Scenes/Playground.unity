@@ -12457,7 +12457,7 @@ MonoBehaviour:
   starterAssetsInputs: {fileID: 0}
   pcController: {fileID: 612250685}
   playerName: {fileID: 0}
-  inputField: {fileID: 1010275998}
+  "\u0131nputField": {fileID: 1010275998}
 --- !u!114 &1941173112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43147,7 +43147,11 @@ MonoBehaviour:
     ModeOverride: 2
     LensShift: {x: 0, y: 0}
     GateFit: 2
+<<<<<<< HEAD
     m_SensorSize: {x: 0.78110945, y: 1}
+=======
+    m_SensorSize: {x: 1.7752265, y: 1}
+>>>>>>> parent of d72a11e (Fixed)
   m_Transitions:
     m_BlendHint: 2
     m_InheritPosition: 0

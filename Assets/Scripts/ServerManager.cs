@@ -95,26 +95,26 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     private void DeviceControl()
     {
-        if (isMobile())
-        {
-            for (int i = 0; i < canvasClosed.Length; i++)
-            {
-                canvasClosed[i].gameObject.SetActive(true);
-            }
-            starterAssetsInputs.cursorInputForLook = false;
-            starterAssetsInputs.cursorLocked = false;
-            m_DeviceType.text = "Handheld";
-        }
-        else
-        {
-            for (int i = 0; i < canvasClosed.Length; i++)
-            {
-                canvasClosed[i].gameObject.SetActive(false);
-            }
-            starterAssetsInputs.cursorInputForLook = true;
-            starterAssetsInputs.cursorLocked = true;
-            m_DeviceType.text = "Desktop";
-        }
+        //if (isMobile())
+        //{
+        //    for (int i = 0; i < canvasClosed.Length; i++)
+        //    {
+        //        canvasClosed[i].gameObject.SetActive(true);
+        //    }
+        //    starterAssetsInputs.cursorInputForLook = false;
+        //    starterAssetsInputs.cursorLocked = false;
+        //    m_DeviceType.text = "Handheld";
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < canvasClosed.Length; i++)
+        //    {
+        //        canvasClosed[i].gameObject.SetActive(false);
+        //    }
+        //    starterAssetsInputs.cursorInputForLook = true;
+        //    starterAssetsInputs.cursorLocked = true;
+        //    m_DeviceType.text = "Desktop";
+        //}
     }
     bool firstDown = true;
     public void HandShake()
